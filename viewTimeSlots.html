@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Time Slots</title>
+    <link rel="stylesheet" href="css/viewTimeSlots.css">
+</head>
+<body>
+    <h1>Choose a date to book an appointment</h1>
+    <hr>
+
+    <!--Calendar-->
+    <div id="calendar">
+
+        <div class="calendarHeader">
+
+            <button id="previousMonthBtn">previous month</button>
+
+            <h2 id="monthYear"></h2>
+
+            <button id="nextMonthBtn">next month</button>
+        </div>
+
+        <!--Days of the week heading-->
+        <div class="daysOfTheWeek">
+            <div>sunday</div>
+            <div>monday</div>
+            <div>tuesday</div>
+            <div>wednesday</div>
+            <div>thursday</div>
+            <div>friday</div>
+            <div>saturday</div>
+        </div>
+
+        <!--generate calendar days here-->
+        <div id="calendarDays"></div>
+
+    </div>
+
+    <!--Available time slots-->
+    <div id="availableSlots">
+        <h2>Available Appointment Times</h2>
+
+        <div id="timeSlots"></div>
+    </div>
+
+    <!--Script-->
+    <script type="module" src="js/viewTimeSlots.js"></script>
+    
+</body>
+</html>
