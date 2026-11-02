@@ -54,10 +54,6 @@ classDiagram
         +sendAt: Date
         +sent: boolean
     }
-    class Validator {
-        +isValidName(name: string)$ boolean
-        +isValidEmail(email: string)$ boolean
-    }
     class DataStore {
         +getClinic(id: string)$ Clinic or undefined
         +saveAppointment(appointment: Appointment) void
@@ -73,11 +69,11 @@ classDiagram
         +getDueReminders(now: Date) Reminder[]
     }
     class AppointmentService {
-        +book(date: string, time: string, name: string, email: string) Appointment
+        +book(dateTime: Date, clinicId: string, patientName: string, patientEmail: string) Appointment
         +cancel(appointmentId: string) Appointment
-        +reschedule(appointmentId: string, date: string, time: string) Appointment
-        +getUpcomingForPatient(email: string, now: Date) Appointment[]
-        +filterAppointments(date: string, patientName: string) Appointment[]
+        +reschedule(appointmentId: string, dateTime: Date) Appointment
+        +getUpcomingForPatient(email: string) Appointment[]
+        +filterAppointments(email: string, dateFrom: Date, dateTo: Date) Appointment[]
     }
     TimeSlotsManager "1" *-- "*" TimeSlot : manages
     Appointment "*" --> "1" Patient : booked by
@@ -88,7 +84,6 @@ classDiagram
     AppointmentService --> TimeSlotsManager : uses
     AppointmentService --> DataStore : uses
     AppointmentService --> NotificationService : uses
-    AppointmentService ..> Validator : uses
     AppointmentService "1" --> "*" Appointment : creates
     NotificationService "1" --> "*" Reminder : schedules
     NotificationService --> DataStore : uses
@@ -105,7 +100,6 @@ classDiagram
 | `Appointment` | Represents one booking and its status. Handles cancelling and rescheduling. | Proposed |
 | `AppointmentStatus` | Lists the possible states of an appointment. | Proposed |
 | `Reminder` | Represents one reminder scheduled for an appointment. | Proposed |
-| `Validator` | Checks that names and emails are valid before a booking is saved. | Proposed |
 | `DataStore` | Saves and loads appointments and reminders. | Proposed |
 | `NotificationService` | Sends booking confirmations and manages reminders. | Proposed |
 | `AppointmentService` | Coordinates booking, cancelling, rescheduling and viewing appointments. | Proposed |
@@ -117,7 +111,7 @@ classDiagram
 - **Appointment and Clinic.** Each appointment takes place at one clinic. The appointment stores the clinic's id rather than the full object.
 - **Appointment and TimeSlot.** A booked appointment occupies one time slot. Cancelling or rescheduling makes that slot available again.
 - **Reminder and Appointment.** An appointment can have several reminders. Each reminder stores the id of its appointment.
-- **AppointmentService.** This is the main entry point for the pages. It uses `Validator` to check input, `TimeSlotsManager` to reserve slots, `DataStore` to save appointments and `NotificationService` to send confirmations and reminders.
+- **AppointmentService.** This is the main entry point for the pages. It uses `TimeSlotsManager` to reserve slots, `DataStore` to save appointments and `NotificationService` to send confirmations and reminders.
 - **NotificationService and Reminder.** The service creates reminders when an appointment is booked and removes them when it is cancelled.
 
 ## Agreed and proposed decisions
