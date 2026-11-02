@@ -37,13 +37,12 @@ classDiagram
         +id: string
         +patient: Patient
         +clinicId: string
-        +date: string
-        +time: string
+        +dateTime: Date
         +status: AppointmentStatus
         +createdAt: Date
         +cancel() void
-        +reschedule(date: string, time: string) void
-        +isUpcoming(now: Date) boolean
+        +reschedule(newDateTime: Date) void
+        +isUpcoming() boolean
     }
     class AppointmentStatus {
         <<enumeration>>

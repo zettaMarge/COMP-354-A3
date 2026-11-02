@@ -1,24 +1,50 @@
-export class Appointment {
+/**
+ * States an appointment can be in
+ */
+const Status = {
+    BOOKED: "Booked",
+    CANCELLED: "Cancelled"
+}
 
-    // constructor
-    constructor(id, patient, clinicId, date, time, status, createdAt) {
+/**
+ * Model class for an appointment
+ */
+export class Appointment {
+    /**
+     * constructor
+     * @param {string} id 
+     * @param {Patient} patient 
+     * @param {string} clinicId 
+     * @param {Date} dateTime 
+     */
+    constructor(id, patient, clinicId, dateTime) {
         this.id = id;
         this.patient = patient;
         this.clinicId = clinicId;
-        this.date = date;
-        this.time = time;
-        this.status = status;
-        this.createdAt = createdAt;
+        this.dateTime = dateTime;
+        this.status = Status.BOOKED;
+        this.createdAt = new Date();
     }
     
-    // -------------------------TO DO---------------------------------------
-    // methods
+    /**
+     * Changes the status of the appointment to CANCELLED
+     */
     cancel() {
+        this.status = Status.CANCELLED; 
     }
 
-    reschedule(date, time) {
+    /**
+     * Updates the date & time of the appointment
+     * @param {Date} newDateTime 
+     */
+    reschedule(newDateTime) {
+        this.dateTime = newDateTime;
     }
 
-    isUpcoming(now) {
+    /**
+     * @returns if the appointment is coming up, so long as it isn't cancelled
+     */
+    isUpcoming() {
+        return this.status === Status.BOOKED && new Date() <= this.dateTime;
     }
 }
