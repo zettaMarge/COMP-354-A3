@@ -1,0 +1,41 @@
+.calendarHeader {
+    display: flex;
+    gap: 70px;
+    justify-content: center;
+    align-items: center;
+}
+
+.daysOfTheWeek {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    text-align: center;
+    font-weight: bold;
+    margin: 5px 120px;
+}
+
+#calendarDays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    text-align: center;
+    margin: 5px 120px;
+}
+
+#calendarDays button {
+    padding: 5px;
+    border-radius: 5px;
+    margin: 2px;
+    
+}
+
+#availableSlots {
+    margin: 50px 10px;
+}
+
+#timeSlots button {
+    padding: 10px 40px;
+    border-radius: 5px;
+    margin: 2px;
+    background-color: #daedf5;
+}
