@@ -21,6 +21,23 @@ let currentYear = 2026;
 // generate appointment slots for november
 manager.generateTimeSlots(currentMonth, currentYear);
 
+// ------------------- TO CHANGE -------------------------------
+const appointments = [
+    {
+        date: "2026-11-05",
+        time: "09:00",
+        status: "BOOKED"
+    },
+    {
+        date: "2026-10-07",
+        time: "09:00",
+        status: "BOOKED"
+    }
+];
+// --------------------------------------------------
+// sync w appointments
+manager.syncWithAppointments(appointments);
+
 // generate calendar function
 function generateCalendar(month, year) {
 
@@ -109,6 +126,8 @@ previousMonthBtn.addEventListener("click", function() {
    calendarDays.innerHTML = "";
     generateCalendar(currentMonth, currentYear);
     manager.generateTimeSlots(currentMonth, currentYear);
+    // sync w appointments
+    manager.syncWithAppointments(appointments);         
 });
 
 nextMonthBtn.addEventListener("click", function() {
@@ -124,4 +143,6 @@ nextMonthBtn.addEventListener("click", function() {
    calendarDays.innerHTML = "";
     generateCalendar(currentMonth, currentYear);
     manager.generateTimeSlots(currentMonth, currentYear);
+    // sync w appointments
+    manager.syncWithAppointments(appointments);
 });

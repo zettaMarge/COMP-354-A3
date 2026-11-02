@@ -1,4 +1,5 @@
 import { TimeSlot } from "../classes/TimeSlot.js";
+import { Appointment } from "../classes/Appointment.js";
 
 export class TimeSlotsManager {
 
@@ -47,8 +48,26 @@ export class TimeSlotsManager {
 
     // get multiple slots for that date
     getTimeSlots(date) {
-    return this.timeSlots.filter(slot => slot.date === date);
-}
+        return this.timeSlots.filter(slot => slot.date === date);
+    }
+
+    // sync w appointments method
+    syncWithAppointments(appointments) {
+
+        // for each slot
+        this.timeSlots.forEach(slot => {
+
+            // check if theres alrdy appointment
+            const appointmentAlrdyThere = appointments.some(appointment => 
+                appointment.date == slot.date && appointment.time == slot.time)
+
+            // if yes, make slot unavail
+            if (appointmentAlrdyThere) {
+                slot.available = false;
+            }
+        });
+    }
+
 
 
 
