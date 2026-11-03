@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Time Slots</title>
     <link rel="stylesheet" href="css/viewTimeSlots.css">
+    <link rel="stylesheet" href="css/cancelAppointment.css">
 </head>
 <body>
     <h1>Choose a date to book an appointment</h1>
@@ -39,14 +40,31 @@
     </div>
 
     <!--Available time slots-->
-    <div id="availableSlots">
+    <div id="availableSlots" hidden>
         <h2>Available Appointment Times</h2>
 
         <div id="timeSlots"></div>
     </div>
 
+    <!-- Patient's appointments -->
+     <div class="appointment">
+        <h2>Your Appointments</h2>
+
+        <!-- Temporary appointment for testing -->
+        <p><strong>Date:</strong>&nbsp;<span id="appointmentDate"></span></p>
+        <p><strong>Time:</strong>&nbsp;<span id="appointmentTime"></span></p>
+        <p><strong>Status:</strong>&nbsp;<span id="appointmentStatus"></span></p>
+
+        <!-- Cancel appointment button -->
+         <button type="button" id="cancelButton">Cancel Appointment</button>
+
+         <!-- Cancellation message -->
+          <p id="cancelMessage"></p>
+     </div>
+
     <!--Script-->
     <script type="module" src="js/viewTimeSlots.js"></script>
+    <script type="module" src="js/cancelAppointment.js"></script>
     
 </body>
 </html>

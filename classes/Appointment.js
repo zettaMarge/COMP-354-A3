@@ -11,11 +11,16 @@ export class Appointment {
         this.createdAt = createdAt;
     }
     
-    // -------------------------TO DO---------------------------------------
-    // methods
+    // cancel appointment
     cancel() {
+        // check if appointment is not already cancelled
+        if(this.status != "CANCELLED") {
+            // change appointment status to cancelled
+            this.status = "CANCELLED";
+        }
     }
 
+    // -------------------------TO DO---------------------------------------
     reschedule(date, time) {
     }
 

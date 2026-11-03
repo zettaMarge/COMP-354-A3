@@ -1,0 +1,18 @@
+/* Appointment information */
+.appointment {
+    border: 1px soid #ccc;
+    border-radius: 5px;
+    padding: 15px;
+    padding: 15px;
+    margin-top: 20px;
+    max-width: 400px;
+}
+
+/* Cancel appointment button */
+.appointment button {
+    padding: 10px 40px;
+    border-radius: 5px;
+    margin: 2px;
+    background-color: #daedf5;
+    cursor: pointer;
+}

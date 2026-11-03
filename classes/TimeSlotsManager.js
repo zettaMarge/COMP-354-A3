@@ -59,16 +59,10 @@ export class TimeSlotsManager {
 
             // check if theres alrdy appointment
             const appointmentAlrdyThere = appointments.some(appointment => 
-                appointment.date == slot.date && appointment.time == slot.time)
+                appointment.date == slot.date && appointment.time == slot.time && appointment.status != "CANCELLED");
 
-            // if yes, make slot unavail
-            if (appointmentAlrdyThere) {
-                slot.available = false;
-            }
+            // update whether the time slot is available
+            slot.available = !appointmentAlrdyThere;
         });
     }
-
-
-
-
 }
