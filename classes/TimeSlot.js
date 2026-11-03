@@ -23,4 +23,11 @@ export class TimeSlot {
         } 
         return false;
     }
+
+    // release time slot method
+    release() {
+        this.available = true;
+
+        return true; // indicate success
+    }
 }

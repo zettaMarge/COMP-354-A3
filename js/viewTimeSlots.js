@@ -1,6 +1,6 @@
 import { TimeSlotsManager } from "../classes/TimeSlotsManager.js";
 
-const manager = new TimeSlotsManager();
+export const manager = new TimeSlotsManager();
 
 const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
@@ -10,19 +10,25 @@ const calendarDays = document.getElementById("calendarDays");
 const monthYear = document.getElementById("monthYear");
 // connect to available slots contaienr
 const timeSlots = document.getElementById("timeSlots");
+
+const availableSlots = document.getElementById("availableSlots");
+
 // connect to previous and next buttons
 const previousMonthBtn = document.getElementById("previousMonthBtn");
 const nextMonthBtn = document.getElementById("nextMonthBtn");
 
-// start in nov 2026
-let currentMonth = 11;
-let currentYear = 2026;
+// get the current date
+const today = new Date();
 
-// generate appointment slots for november
+// start at the current month and year
+let currentMonth = today.getMonth() + 1;
+let currentYear = today.getFullYear();
+
+// generate appointment slots for the current month
 manager.generateTimeSlots(currentMonth, currentYear);
 
 // ------------------- TO CHANGE -------------------------------
-const appointments = [
+export const appointments = [
     {
         date: "2026-11-05",
         time: "09:00",
@@ -37,6 +43,43 @@ const appointments = [
 // --------------------------------------------------
 // sync w appointments
 manager.syncWithAppointments(appointments);
+
+// refresh the available time slots for a selected data
+export function refreshAvailableSlots(date) {
+
+    // get the available time slots for this date
+    const available = manager.getAvailableSlots(date);
+
+    // clear the preivous time slots 
+    timeSlots.innerHTML = "";
+
+    // get the year, month, and day from the date
+    const parts = date.split("-");
+    const year = Number(parts[0]);
+    const month = Number(parts[1]);
+    const day = Number(parts[2]);
+
+    // create heading for the selected date
+    const currentDateHeading = document.createElement("h3");
+    currentDateHeading.textContent = `for ${monthNames[month - 1]} ${day}, ${year}`;
+
+    // display the heading
+    timeSlots.appendChild(currentDateHeading);
+
+    // display each available time slot
+    available.forEach(function (slot) {
+
+        // create a button for the time slot
+        const timeSlotButton = document.createElement("button");
+        timeSlotButton.textContent = slot.time;
+
+        // add the button to the page
+        timeSlots.appendChild(timeSlotButton);
+    });
+
+    // show the available time slots section
+    availableSlots.hidden = false;
+}
 
 // generate calendar function
 function generateCalendar(month, year) {
@@ -67,42 +110,15 @@ function generateCalendar(month, year) {
         // event listener to button
         dayButton.addEventListener("click", function() {
 
-            // date in year/month/day format
+            // get the date selected by the patient
             const selectedDate = `${year}-${String(month).padStart(2,"0")}-${String(day).padStart(2,"0")}`;
 
-            // get available time slots
-            const available = manager.getAvailableSlots(selectedDate);
+            // display the available time slots for this date
+            refreshAvailableSlots(selectedDate);
 
-            // clear previous results
-            timeSlots.innerHTML = "";
-
-            // create heading for current date
-            const currentDateHeading = document.createElement("h3");
-            currentDateHeading.textContent = `for ${monthNames[month-1]} ${day}, ${year}`;
-
-            // add to the page
-            timeSlots.appendChild(currentDateHeading);
-
-
-            // display each slot
-            available.forEach(slot => {
-                
-                // create button
-                const timeSlotButton = document.createElement("button");
-                // w text
-                timeSlotButton.textContent = slot.time;
-
-                // add to the page
-                timeSlots.appendChild(timeSlotButton);
-            })
-
-    
             console.log("selected date: ", selectedDate);
-            console.log("avail slots: ", available);
-
-
-
-        })
+            console.log("available slots: ", manager.getAvailableSlots(selectedDate));
+        });
 
         // add day to calendar
         calendarDays.appendChild(dayButton);
