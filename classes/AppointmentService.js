@@ -6,6 +6,14 @@ import { Patient } from "./Patient.js";
  */
 export class AppointmentService {
     /**
+     * constructor
+     * @param {Datastore} dataStore  
+     */
+    constructor(dataStore) {
+        this.dataStore = dataStore;
+    }
+
+    /**
      * Books a new appointment for a given patient
      * @param {Date} dateTime 
      * @param {string} clinicId 
@@ -15,7 +23,7 @@ export class AppointmentService {
      */
     book(dateTime, clinicId, patientName, patientEmail) {
         var appointment = new Appointment(DataStore.GetNextId(), new Patient(patientName, patientEmail), clinicId, dateTime);
-        DataStore.saveAppointment(appointment);
+        this.dataStore.saveAppointment(appointment);
         return appointment;
     }
 }
