@@ -124,7 +124,7 @@ classDiagram
 ## Agreed and proposed decisions
 
 **Based on the code or the acceptance criteria**
-- Time slots are divided into 30-minute intervals (#2).
+- Time slots are divided into 1-hour intervals (#2).
 - Booking requires a name and a valid email (#3, #9).
 - Cancelled appointments have the status `CANCELLED`, and their time slot becomes available again (#4).
 - Upcoming appointments exclude cancelled and past appointments (#5).
